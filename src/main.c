@@ -1,109 +1,65 @@
-#include <math.h>
-#include <stdint.h>
 #include <stdio.h>
 
-//From https://pynative.com/c-programming-pointers-exercises/
 
-int problem1(){
-    //Declare an integer, a pointer to an integer, and initialize the pointer
-    // to the address of the integer. Print the variables value and value
-    // accessed via the pointer.
-    int16_t x = 14;
-    int16_t * p = &x;
-
-    printf("Var 'x' value: %d\n", x);
-    printf("Var 'x' address: %p\n", &x);
-    printf("Ptr 'p' value: %p\n", p);
-    printf("Value accessed by dereferencing: %d\n", *p);
-
-    return 0;
+int problem11(char *string){
+  /* Write a function custom_strlen to calculate the length
+     of a string (null-terminated character array) without
+     using the standard C library function strlen(). The
+     function must use a character pointer to traverse
+     the string until it finds the null terminator (\0). */
+  char *c = string;
+  while(*c != 0){
+    c++;
+  }
+  return c - string;
 }
 
-int problem2(){
-    //Write a program that uses the dereference operator (*)
-    // to change the value of a variable through its pointer.
-
-    int num =  100;
-    int *p  = &num;
-
-    printf("Original value of num: %d\n", num);
-    *p = 500;
-    printf("New value of num: %d\n", num);
-
-    return 0;
+void problem12(char *src, char *dest){
+  /* Implement a function custom_strcpy that copies the content of a source
+  string (src) to a destination string (dest) using only character pointers.*/
+  while((*dest++ = *src++) != '\0');
 }
 
-int problem3(){
-    //Print the memory addresses of two different variables
-    // (e.g., an int and a float) using the address-of operator (&).
-    // Additionally, print the address of a pointer variable itself.
+void problem13(){
+  /*Count the number of vowels (A, E, I, O, U, and
+    their lowercase counterparts) in a given string
+    using a character pointer for traversal.*/
+  char sentence[] = "The quick brown fox jumped over the lazy dog.";
+  printf("Sentence: %s\n", sentence);
+  char *s = sentence;
 
-    int a = 10;
-    float b = 20.5f;
-
-    int *p_a = &a;
-
-    printf("Addres of int 'a': %p\n", &a);
-    printf("Address of float 'b': %p\n", &b);
-    printf("Address stored in 'p_a': %p\n", p_a);
-    printf("Address of 'p_a': %p\n", &p_a);
-    
-    return 0;
+  int vowel = 0;
+  while(*s != '\0'){
+    if(*s == 'a' || *s == 'e' || *s == 'i' || *s == 'o' || *s == 'u' || *s == 'A' || *s == 'E' || *s == 'I' || *s == 'O' || *s == 'U') vowel++;
+    s++;
+  }
+  printf("Total number of vowels: %d\n", vowel);  
 }
 
-
-int problem4(){
-
-    // Write a program to print the size (in bytes) of
-    // a pointer to an integer, a pointer to a character,
-    // and a pointer to a float on your system.
-
-    int * pi;
-    char * pc;
-    float * pf;
-        
-    printf("size of int pointer is: %lu bytes.\n", sizeof(pi));
-    printf("size of char pointer is: %lu bytes.\n", sizeof(pc));
-    printf("size of float pointer is: %lu bytes.\n", sizeof(pf));
-    printf("size of int variable: %lu bytes.\n", sizeof(int));
-    printf("size of float variable: %lu bytes.\n", sizeof(float_t));    
-    return 0;
+void problem14(){
+  /*Use a pointer to iterate
+  through a string and print each character on a new line,
+  stopping at the null terminator.*/
+  char *message = "C Pointers";
+  while (*message != '\0') {
+    printf("%c\n",*message);
+    message++;
+  }
 }
 
-void problem5(int *num){
-    // Create a function increment_value that takes an
-    // integer pointer as an argument and increments the
-    // value of the variable it points to by one. Demonstrate the change in the main function.
+int main(){
+  /* char *string = "Poopy Poop Pee";
+  int len = problem11(string);
+  printf("%s is %d chars\n",string,len);
+  printf("sizeof char is :%zu\n",sizeof(char)); 
+  
+  char *source = "Pointer master v2 Rtn 2 streetz.";
+  char dest[50];
+  problem12(source, dest);
+  printf("Src: %s\nDest: %s\n",source,dest);
+  printf("Src is %d chars\n",problem11(source));*/
 
-    *num += 1;
-
-}
-
-
-int problem6(){
-
-    int arr[] = {10, 20, 30, 40, 50, 60, 80, 100};
-    int len = sizeof arr / sizeof arr[0];
-    int * p = arr;
-
-    int i;
-    for(i = 0; i < len; i++){
-        printf("Element %d: %i\n",i,*p);
-        p++;
-    }
-    return 0;
-}
-
-
-int main() {
-    // int num = 10;
-
-    // printf("Num = %d.\n", num);
-    // problem5(&num);
-    // printf("Now num = %d.\n", num);
-
-
-    problem6();
-
-    return 0;
+  
+  problem14();
+  return 0;
 }
