@@ -1,65 +1,86 @@
+#include <math.h>
+#include <stddef.h>
 #include <stdio.h>
+#include <stdlib.h>
 
-
-int problem11(char *string){
-  /* Write a function custom_strlen to calculate the length
-     of a string (null-terminated character array) without
-     using the standard C library function strlen(). The
-     function must use a character pointer to traverse
-     the string until it finds the null terminator (\0). */
-  char *c = string;
-  while(*c != 0){
-    c++;
-  }
-  return c - string;
-}
-
-void problem12(char *src, char *dest){
-  /* Implement a function custom_strcpy that copies the content of a source
-  string (src) to a destination string (dest) using only character pointers.*/
-  while((*dest++ = *src++) != '\0');
-}
-
-void problem13(){
-  /*Count the number of vowels (A, E, I, O, U, and
-    their lowercase counterparts) in a given string
-    using a character pointer for traversal.*/
-  char sentence[] = "The quick brown fox jumped over the lazy dog.";
-  printf("Sentence: %s\n", sentence);
-  char *s = sentence;
-
-  int vowel = 0;
-  while(*s != '\0'){
-    if(*s == 'a' || *s == 'e' || *s == 'i' || *s == 'o' || *s == 'u' || *s == 'A' || *s == 'E' || *s == 'I' || *s == 'O' || *s == 'U') vowel++;
-    s++;
-  }
-  printf("Total number of vowels: %d\n", vowel);  
-}
-
-void problem14(){
-  /*Use a pointer to iterate
-  through a string and print each character on a new line,
-  stopping at the null terminator.*/
-  char *message = "C Pointers";
-  while (*message != '\0') {
-    printf("%c\n",*message);
-    message++;
-  }
-}
+int problem15();
+int problem16();
+int problem17();
 
 int main(){
-  /* char *string = "Poopy Poop Pee";
-  int len = problem11(string);
-  printf("%s is %d chars\n",string,len);
-  printf("sizeof char is :%zu\n",sizeof(char)); 
-  
-  char *source = "Pointer master v2 Rtn 2 streetz.";
-  char dest[50];
-  problem12(source, dest);
-  printf("Src: %s\nDest: %s\n",source,dest);
-  printf("Src is %d chars\n",problem11(source));*/
 
+  problem17();
+  return 0;
+}
+
+int problem15(){
+  /* Dynamically allocate memory for a single integer using malloc().
+  Store the value 108 in this allocated memory, print the value
+  and its memory address, and then free the memory using free().*/
+
+  int *i = malloc(sizeof(int));
   
-  problem14();
+  if(i == NULL){
+    printf("Memory allocation failed!\n");
+    return 1;
+  }
+  
+  *i = 108;
+  printf("Value stored dynamically: %d\n", *i);
+  printf("Memory address allocated: %p\n",i);
+
+  free(i);
+  i = NULL;
+  
+  return 0;
+}
+
+int problem16(){
+  /* Dynamically allocate memory for an array of 5 integers using malloc().
+  Read 5 integer values from the user into the array, print them using
+  pointer arithmetic, and finally, free the allocated memory.*/
+  const int count = 5;
+  int *arr = malloc(sizeof(int) * count);
+  int i;
+
+  if(arr == NULL){
+    printf("Memory allocation failed!\n");
+    return 1;
+  }
+
+  printf("Enter 5 integers:\n");
+  for(i = 0; i < count; i++){
+    printf("Element %d: ", i + 1);
+    if(scanf("%d", &arr[i]) != 1){
+      printf("Invalid input!\n");
+      free(arr);
+      return 1;  
+    }
+  }
+
+  printf("Stored elements are: ");
+  for(i = 0; i < count; i++){
+    printf("%d ", arr[i]);
+  }
+
+  free(arr);
+  arr = NULL;
+  return 0;
+}
+
+int problem17(){
+  /*Use calloc() to dynamically allocate memory
+  for an array of 10 floating-point numbers.
+  Print the first and last elements to verify that calloc
+  automatically initializes all elements to zero. Then, free the memory.*/
+  const int count = 10;
+  float *arr = calloc(count, sizeof *arr);
+  
+  printf("First element: %.2f\n", arr[0]);
+  printf("Last element: %.2f\n", arr[count - 1]);
+  arr[4] = M_PI;
+  printf("Element 5: %.3f\n", arr[4]); 
+  
+  free(arr);
   return 0;
 }
